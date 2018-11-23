@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t rajithsiriwardana/react-test -f ./client/Dockerfile.dev ./client
+
+#exit code should be 0
+script:
+  - docker run rajithsiriwardana/react-test yarn test -- --coverage
+
+after_success:
+  - docker build -t rajithsiriwardana/multi-d-client ./client
+  - docker build -t rajithsiriwardana/multi-d-nginx ./nginx
+  - docker build -t rajithsiriwardana/multi-d-server ./server
+  - docker build -t rajithsiriwardana/multi-d-worker ./worker
+  #login in to Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push rajithsiriwardana/multi-d-client
+  - docker push rajithsiriwardana/multi-d-nginx
+  - docker push rajithsiriwardana/multi-d-server
+  - docker push rajithsiriwardana/multi-d-worker
