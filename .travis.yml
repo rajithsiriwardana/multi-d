@@ -15,7 +15,7 @@ after_success:
   - docker build -t rajithsiriwardana/multi-d-server ./server
   - docker build -t rajithsiriwardana/multi-d-worker ./worker
   #login in to Docker CLI
-  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin
+  - docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD"
   - docker push rajithsiriwardana/multi-d-client
   - docker push rajithsiriwardana/multi-d-nginx
   - docker push rajithsiriwardana/multi-d-server
