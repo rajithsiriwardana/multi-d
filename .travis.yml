@@ -20,3 +20,18 @@ after_success:
   - docker push rajithsiriwardana/multi-d-nginx
   - docker push rajithsiriwardana/multi-d-server
   - docker push rajithsiriwardana/multi-d-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-1
+  app: multi-d
+  env: MultiD-env
+  bucket_name:
+    secure: $BUCKET_NAME
+  bucket_path: multi-d
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY

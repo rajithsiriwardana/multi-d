@@ -1,0 +1,34 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "rajithsiriwardana/multi-d-client",
+            "hostname": "client",
+            "essential": "false"
+        },
+        {
+            "name": "server",
+            "image": "rajithsiriwardana/multi-d-server",
+            "hostname": "api",
+            "essential": "false"
+        },
+        {
+            "name": "server",
+            "image": "rajithsiriwardana/multi-d-worker",
+            "essential": "false"
+        },        
+        {
+            "name": "nginx",
+            "image": "rajithsiriwardana/multi-d-nginx",
+            "essential": "true",
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [ "client", "server"]
+        }        
+    ]
+}
