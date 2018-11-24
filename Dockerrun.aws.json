@@ -14,7 +14,7 @@
             "essential": "false"
         },
         {
-            "name": "server",
+            "name": "worker",
             "image": "rajithsiriwardana/multi-d-worker",
             "essential": "false"
         },        
